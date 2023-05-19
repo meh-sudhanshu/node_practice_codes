@@ -1,0 +1,9 @@
+const express = require("express")
+
+const router = express.Router()
+
+
+router.use("/user",()=>{
+    res.write("book has been added")
+    return res.end()
+})
