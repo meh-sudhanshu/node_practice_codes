@@ -1,18 +1,17 @@
 {
-  "dependencies": {
-    "express": "^4.18.2"
-  },
-  "name": "node_revision",
+  "name": "revision",
   "version": "1.0.0",
-  "main": "app.js",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
   "devDependencies": {
     "nodemon": "^2.0.22"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start":"nodemon app.js"
-  },
-  "author": "sudhanshu",
-  "license": "ISC",
-  "description": ""
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
