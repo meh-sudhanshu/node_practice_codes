@@ -16,7 +16,7 @@ router.post("/register",async(req,res)=>{
     const hashedConfPassword = await bcrypt.hash(conf_password,salt)
     user.password = hashedPassword
     user.conf_password = hashedConfPassword
-    const token = jwt.sign({userID:user.__id},process.env.JWT_SECRET_KEY,{expiresIn:"2s"})
+    const token = jwt.sign({userID:user.__id},process.env.JWT_SECRET_KEY,{expiresIn:"2d"})
     user.token = token
     const savedUser = UserTable.saveUser(user)
     res.send(savedUser)
@@ -29,7 +29,7 @@ router.get("/login",async(req,res)=>{
         if(user.email === email ){
             const hashedPassword = user.password
             var isMatched = await bcrypt.compare(password,hashedPassword)
-            const token = jwt.sign({userID:user.__id},process.env.JWT_SECRET_KEY,{expiresIn:"2s"})
+            const token = jwt.sign({userID:user.__id},process.env.JWT_SECRET_KEY,{expiresIn:"2d"})
             return res.send({
                 email:email,
                 password:password,
@@ -53,7 +53,13 @@ router.get("/get-all-users",(req,res)=>{
 
 
 router.post("/change-password",(req,res)=>{
-
+    const {authorization} = req.headers
+    // console.log(token)
+    const token = authorization.split(" ")[1]
+    const {userID} = jwt.verify(token,process.env.JWT_SECRET_KEY)
+    res.send({
+        userID:userID
+    })
 })
 
 export default router
