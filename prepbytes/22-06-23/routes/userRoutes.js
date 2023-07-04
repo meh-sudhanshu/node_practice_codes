@@ -16,8 +16,11 @@ router.post("/register",async(req,res)=>{
     const hashedConfPassword = await bcrypt.hash(conf_password,salt)
     user.password = hashedPassword
     user.conf_password = hashedConfPassword
-    const token = jwt.sign({userID:user.__id},process.env.JWT_SECRET_KEY,{expiresIn:"2d"})
+    const token = jwt.sign({userID:user.__id,
+                            userRole: user.role               },
+    process.env.JWT_SECRET_KEY,{expiresIn:"2d"})
     user.token = token
+    user.role = "user"
     const savedUser = UserTable.saveUser(user)
     res.send(savedUser)
 })
@@ -50,16 +53,42 @@ router.get("/get-all-users",(req,res)=>{
 })
 
 
-
-
-router.post("/change-password",(req,res)=>{
+router.post("/change-password",async(req,res)=>{
     const {authorization} = req.headers
+    const {password,conf_password}= req.body
+    if(password !== conf_password){
+        res.send("password and conf_password does not match")
+    }
+    if(authorization){
+        const token = authorization.split(" ")[1]
+        const {userID} = jwt.verify(token,process.env.JWT_SECRET_KEY)
+        const usersList = await UserTable.getAllUsers()
+        for(var i=0;i<usersList.length;i++){
+            const user = usersList[i]
+            const __id = user.__id
+            if(__id === userID){
+                const salt = await bcrypt.genSalt(10)
+                const hashedPassword = await bcrypt.hash(password,salt)
+                const hashedConfPassword = await bcrypt.hash(conf_password,salt)
+                user.password = hashedPassword
+                user.conf_password = hashedConfPassword
+                return res.send(user)
+            }
+            console.log(userID === __id)
+        }
+    }
     // console.log(token)
-    const token = authorization.split(" ")[1]
-    const {userID} = jwt.verify(token,process.env.JWT_SECRET_KEY)
-    res.send({
-        userID:userID
-    })
+   
 })
 
+router.get("/get-sensitive-data",(req,res)=>{
+    const {authorization} = req.headers
+    const token = authorization.split(" ")[1]
+    const {userRole} = jwt.verify(token,process.env.JWT_SECRET_KEY)
+    if(userRole !== "admin"){
+        res.send("you are authorzed to access this resource")
+    }else{
+        res.send("access denied")
+    }
+})
 export default router

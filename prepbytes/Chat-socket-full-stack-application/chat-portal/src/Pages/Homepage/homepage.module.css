@@ -1,0 +1,39 @@
+
+
+.main{
+    width: 100vw;
+    height: 100vh;
+    background-color: red;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+
+.info{
+    width: 60vw;
+    height: 90vh;
+    background-color: yellow;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content:center;
+    align-items: center;
+
+    gap: 20px;
+
+
+
+}
+
+.heading{
+    font-family: sans-serif;
+}
+
+.login_btn{
+    width: 190px;
+    padding: 20px;
+}
