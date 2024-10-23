@@ -41,7 +41,10 @@ const api = baseUrl+"/photos/"+accessKeyString
 const getARandomPhoto = async ()=>{
     const response = await fetch(api)
     const data = await response.json()
-    console.log(data[0].links.self)
+    const imageLink = (data[0].links.self)
+    const imageResponse = await fetch(imageLink+"/?client_id="+accessKey)
+    const image = await imageResponse.json()
+    console.log(image.urls.full)
 }
 
 getARandomPhoto()
