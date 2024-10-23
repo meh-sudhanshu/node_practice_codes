@@ -29,15 +29,23 @@
 
 const baseUrl = "https://api.unsplash.com/"
 const accessKey = "0to0_B5y7HVLx-fGSigaBCSltEg-1DWGU3bihJDjWrM"
-
+const btn = document.getElementsByClassName('btn')[0]
 const api = baseUrl+"/photos/?client_id="+accessKey
 
 
 const getARandomPhoto = async()=>{
     const res = await fetch(api)
     const data = await res.json()
-    console.log(data[0].urls.small)
+    const imageLink = (data[0].urls.small)
+    const imageElement = document.createElement("img")
+    imageElement.src = imageLink
+    imageElement.style.width = "300px"
+    imageElement.style.height = "300px"
+    document.body.appendChild(imageElement)
 }
-getARandomPhoto()
+
+
+
+btn.addEventListener('click',getARandomPhoto)
 
 // console.log(api)
