@@ -26,12 +26,27 @@ const fs = require("fs")
 // }catch(err){
 //     console.log(err)
 // }
-fs.readFile("text.txt",(err,info)=>{
-    if(err){
-        console.log(err)
-    }else{
-        console.log(info.toString())
-    }
-})
+// fs.readFile("text.txt",(err,info)=>{
+//     if(err){
+//         console.log(err)
+//     }else{
+//         console.log(info.toString())
+//     }
+// })
 
 //console.log("This is present after my write file operation !!")
+
+
+// fs.appendFile("text.txt","\nthis is a new data",(err)=>{
+//     console.log(err)
+// })
+
+// try{
+//     fs.appendFileSync("text.txt","\nnew new new !!")
+// }catch(err){
+//     console.log(err)
+// }
+
+fs.unlink("text.txt",(err)=>{
+    console.log(err)
+})
