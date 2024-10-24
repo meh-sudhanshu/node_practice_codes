@@ -1,0 +1,2 @@
+Hi this is a new new new  static content being written to the file !!/nThis data should come in a new line
+This data should come in a new line

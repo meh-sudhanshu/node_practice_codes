@@ -15,6 +15,6 @@ const server = http.createServer((req,res)=>{
     res.end()
 })
 
-server.listen(8080,()=>{
-    console.log("server started at port 8080")
+server.listen(8081,()=>{
+    console.log("server started at port 8081")
 })
