@@ -17,7 +17,7 @@ async function init() {
     rl.setPrompt("------------------>")
     rl.prompt()
 
-    var location = "1"
+    const location = "north"
     rl.on("line",async function  (line) {
             await producer.send({
                 topic:"rider-updates",
@@ -28,9 +28,9 @@ async function init() {
                         value:JSON.stringify({name:"zomato-rider",location})
                     }
                 ]
-            }).on("close",async()=>{
-                await producer.disconnect()
             })        
+    }).on("close",async ()=>{
+        await producer.disconnect()
     })
 }
 
