@@ -11,9 +11,10 @@ async function init() {
         groupId:group
     })
 
+    await consumer.connect()
     await consumer.subscribe({
         topics:[
-            "riders-updates"
+            "rider-updates"
         ],
         fromBeginning:true
     })
